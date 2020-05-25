@@ -31,12 +31,3 @@ info:
 chen-cloud-user:
   ribbon:
     NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RoundRobinRule
-
-management:
-  endpoint:
-    health:
-      show-details: always   #允许显示/actuator/health信息
-  endpoints:
-    web:
-      exposure:
-        include: '*'   #允许显示所有信息，包括/actuator/health，/actuator/hystrix.stream
