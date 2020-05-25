@@ -88,7 +88,7 @@ public class RateLimterHandler {
          */
         Long result = (Long) redisTemplate.execute(getRedisScript, keyList, expireTime, limitTimes);
         if (result == 0) {
-            String msg = "由于超过单位时间=" + expireTime + "-允许的请求次数=" + limitTimes + "[触发限流]";
+            String msg = "由于超过单位时间=" + expireTime + "-允许的请求次数=" + limitTimes + "[触发限流],返回null";
             LOGGER.info(msg);
             return null;
         }
