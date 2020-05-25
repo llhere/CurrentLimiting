@@ -7,29 +7,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import com.chen.movie.util.RedisUtil;
 
 @RestController
 public class UserController {
 
     @Autowired
     private MovieFeign movieFeign;
+    @Autowired
+    private RedisUtil redisUtil;
 
     @GetMapping("/user/watchMovie/{id}")
-    @HystrixCommand(fallbackMethod = "findByIdFallback")    //快速失败方法，默认1秒检查失败，失败后进入findByIdFallback方法
     public Movie findByUser(@PathVariable Long id) {
+
+        String name = redisUtil.get("name");
+        System.err.println(name);
+
+
         return movieFeign.findMoiveById(id);
     }
 
 
-    /*
-    findByUser 快速失败的方法
-     */
-    public Movie findByIdFallback(Long id){
-        Movie user = new Movie();
-        user.setId(1234L);
-        user.setNodename("node节点异常快速失败返回的User实体");
-        return user;
-    }
 
 
 
